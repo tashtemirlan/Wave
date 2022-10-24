@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.teit.teit_music">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Teit_music"
+        android:requestLegacyExternalStorage="true"
+        >
+        <activity
+            android:name=".Teit_Corp"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PermissionScreen"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".PermissionGranted"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".HomeScreen"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".MusicScreen"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".FavoriteScreen"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".FavoriteMusicScreen"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".PlaylistScreen"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".FindMusicScreen"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".MusicPlayListDialoge"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".Playlist"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".PlayListMusicScreen"
+            android:screenOrientation="portrait"
+            />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

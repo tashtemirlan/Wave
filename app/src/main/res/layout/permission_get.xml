@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/black2"
+    tools:context=".HomeScreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/Text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Спасибо!
+            \n
+            \nНаслаждайтесь нашим приложением для проигрывания музыки :)"
+            android:textColor="@color/textcolor1"
+            style="?attr/textAppearanceHeadline6"
+            app:layout_constraintLeft_toLeftOf="@id/Text1"
+            app:layout_constraintRight_toRightOf="@id/Text1"
+            app:layout_constraintTop_toTopOf="@id/Text1"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="40dp"
+            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+            android:id="@+id/elevatedButton_granted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Продолжить"
+            app:icon="@drawable/done"
+            android:textColor="@color/textcolor1"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:backgroundTint="@color/black1"
+            app:strokeColor="@color/textcolor2"
+            app:strokeWidth="1dp"
+            app:iconTint="@color/textcolor1"
+            app:iconSize="28dp"
+            />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
