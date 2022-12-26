@@ -3,6 +3,7 @@ package com.teit.teit_music;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -30,6 +31,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -531,7 +533,7 @@ public class MusicScreen extends Activity {
 
         musicbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             //define here out textview =>
-            TextView musicstart = (TextView) findViewById(R.id.MusicStartPos);
+            final TextView musicstart = (TextView) findViewById(R.id.MusicStartPos);
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -540,15 +542,15 @@ public class MusicScreen extends Activity {
                 int min_pos = (seekBar.getProgress() - sec_pos) / 60;
                 if (String.valueOf(min_pos).startsWith("0")) {
                     if (String.valueOf(sec_pos).length() == 1) {
-                        musicstart.setText(String.valueOf(min_pos) + ":0" + String.valueOf(sec_pos));
+                        musicstart.setText(min_pos + ":0" + sec_pos);
                     } else {
-                        musicstart.setText(String.valueOf(min_pos) + ":" + String.valueOf(sec_pos));
+                        musicstart.setText(min_pos + ":" + sec_pos);
                     }
                 } else {
                     if (String.valueOf(sec_pos).length() == 1) {
-                        musicstart.setText(String.valueOf(min_pos) + ":0" + String.valueOf(sec_pos));
+                        musicstart.setText(min_pos + ":0" + sec_pos);
                     } else {
-                        musicstart.setText(String.valueOf(min_pos) + ":" + String.valueOf(sec_pos));
+                        musicstart.setText(min_pos + ":" + sec_pos);
                     }
                 }
             }
@@ -582,8 +584,8 @@ public class MusicScreen extends Activity {
 
         timer.scheduleAtFixedRate(new TimerTask() {
             //we should define our widgets here to avoid problems =>
-            TextView musicstart = (TextView) findViewById(R.id.MusicStartPos);
-            SeekBar musicDanceBar = (SeekBar) findViewById(R.id.MusicBar);
+            final TextView musicstart = (TextView) findViewById(R.id.MusicStartPos);
+            final SeekBar musicDanceBar = (SeekBar) findViewById(R.id.MusicBar);
 
             @Override
             public void run() {
@@ -600,12 +602,12 @@ public class MusicScreen extends Activity {
                             musicDanceBar.setProgress(secall);
                             //set data to start_text
                             if (sec > 9) {
-                                musicstart.setText(String.valueOf(min) + ":" + String.valueOf(sec));
+                                musicstart.setText(min + ":" + sec);
                             } else {
-                                musicstart.setText(String.valueOf(min) + ":0" + String.valueOf(sec));
+                                musicstart.setText(min + ":0" + sec);
                             }
                             //if we reached end we should get to next music =>
-                            if (secall == (musicDanceBar.getMax() - 2)) {
+                            if (secall >= (musicDanceBar.getMax() - 2)) {
                                 //set heart unfilled =>
                                 musicheart.setImageResource(R.drawable.heart);
                                 //hide our visualization
@@ -822,7 +824,12 @@ public class MusicScreen extends Activity {
         if (artist != null) {
             MusicSetmusicauthor_screen.setText(artist);
         } else {
-            MusicSetmusicauthor_screen.setText("Неизестно");
+            if(Locale.getDefault().getLanguage()=="ru"){
+                MusicSetmusicauthor_screen.setText("Неизестно");
+            }
+            else{
+                MusicSetmusicauthor_screen.setText("Mystic");
+            }
         }
         MusicSetmusicbar.setMax(allseconds);
     }

@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:endIconMode="clear_text"
         app:endIconTint="@color/black1"
-        android:hint="Наименование плейлиста"
+        android:hint="Playlist name"
         app:boxBackgroundColor="@color/textcolor1"
         app:hintTextColor="@color/black1"
         android:textColorHint="@color/black1"
@@ -78,6 +78,6 @@
         app:iconTint="@color/textcolor1"
         app:icon="@drawable/plus"
         android:textColor="@color/textcolor1"
-        android:text="Создать"
+        android:text="Create"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

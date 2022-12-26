@@ -34,6 +34,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class PlaylistScreen extends Activity {
     NavigationBarView navigationBarView;
@@ -75,6 +76,10 @@ public class PlaylistScreen extends Activity {
         navigationBarView.setItemIconTintList(null);
         navigationBarView.setSelectedItemId(R.id.page_3);
 
+        if(Locale.getDefault().getLanguage()=="ru"){
+            tv1.setText("Ваши музыкальные плейлисты");
+            btn1.setText("Создать плейлист");
+        }
 
         navigationBarView.setOnItemSelectedListener(item ->{
 

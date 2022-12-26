@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 
 public class PermissionGranted extends Activity {
@@ -24,6 +26,12 @@ public class PermissionGranted extends Activity {
 
         //define =>
         btn = (MaterialButton)findViewById(R.id.elevatedButton_granted);
+        TextView textvw = (TextView)findViewById(R.id.Text1);
+        if(Locale.getDefault().getLanguage()=="ru"){
+            textvw.setText("Спасибо!\n\nНаслаждайтесь нашим приложением для проигрывания музыки :)");
+            btn.setText("Продолжить");
+        }
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

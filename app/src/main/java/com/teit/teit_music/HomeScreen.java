@@ -37,6 +37,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class HomeScreen extends Activity{
         NavigationBarView navigationBarView;
@@ -61,6 +62,7 @@ public class HomeScreen extends Activity{
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setContentView(R.layout.home);
 
+
             //declare intents
             final Intent intent_to_favorite = new Intent(com.teit.teit_music.HomeScreen.this,FavoriteScreen.class);
             intent_to_favorite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
@@ -84,6 +86,15 @@ public class HomeScreen extends Activity{
             textinplay = findViewById(R.id.textField_home);
             scrl = findViewById(R.id.scrollView_home);
             constraintLayout = findViewById(R.id.constraint_home);
+
+
+            if(Locale.getDefault().getLanguage()=="ru"){
+                tx1.setText("Приветствую!");
+                tx2.setText("Наслаждайтесь вашей любимой музыкой");
+                textinplay.setHint("Поиск музыки");
+                navigationBarView.getMenu().clear();
+                navigationBarView.inflateMenu(R.menu.bottom_menu_rus);
+            }
 
             //we should work with our database =>
             dataBaseHelp =  new DataBaseHelp(HomeScreen.this);

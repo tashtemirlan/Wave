@@ -27,9 +27,9 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Спасибо!
+            android:text="Thanks!
             \n
-            \nНаслаждайтесь нашим приложением для проигрывания музыки :)"
+            \nEnjoy our music app :)"
             android:textColor="@color/textcolor1"
             style="?attr/textAppearanceHeadline6"
             app:layout_constraintLeft_toLeftOf="@id/Text1"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"
-            android:text="Продолжить"
+            android:text="Enjoy!"
             app:icon="@drawable/done"
             android:textColor="@color/textcolor1"
             android:textAppearance="?attr/textAppearanceHeadline5"

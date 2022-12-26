@@ -17,7 +17,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Ваша любимая музыка"
+        android:text="Your favorite music"
         android:textColor="@color/textcolor1"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -62,6 +62,11 @@ public class MusicPlayListDialoge extends Activity {
         scrl = findViewById(R.id.scrollView_musicdialog);
         btn1 = findViewById(R.id.elevatedButton_playlist);
 
+        if(Locale.getDefault().getLanguage()=="ru"){
+            textInputLayout.setHint("Наименование плейлиста");
+            btn1.setText("Создать");
+        }
+
         //get measure =>
         //get device height and width
         DisplayMetrics metrics = MusicPlayListDialoge.this.getResources().getDisplayMetrics();
@@ -171,7 +176,7 @@ public class MusicPlayListDialoge extends Activity {
                         musicicon.setBackgroundResource(R.drawable.plus);
                         datalayout.setOnClickListener(null);
                         //add values to our new playlist =>
-                        newplaylistsongs.add(String.valueOf(textView.getText()) + ".mp3");
+                        newplaylistsongs.add(textView.getText() + ".mp3");
                     });
                     //add our linear layout to main linear layout =>
                     linearLayout.addView(datalayout);
@@ -207,7 +212,7 @@ public class MusicPlayListDialoge extends Activity {
                     }
                     dataBasePlayList.getAllRecords(tryplaylist ,String.valueOf(textInputEditText.getText()));
                     //after we all maded =>
-                    Log.d("Music" , "Data inside playlist =>" +String.valueOf(tryplaylist));
+                    Log.d("Music" , "Data inside playlist =>" + tryplaylist);
                     //after all what we did we should return to playlist screen =>
                     Intent intent = new Intent(MusicPlayListDialoge.this, PlaylistScreen.class);
                     startActivity(intent);

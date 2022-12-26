@@ -24,15 +24,16 @@
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/activity_main.xml" value="0.37083333333333335" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/favorites.xml" value="0.25" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/findmusic.xml" value="0.25" />
-        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/home.xml" value="0.33" />
+        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/home.xml" value="0.25" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/musicplaylistdialoge.xml" value="0.25" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/musicscreen.xml" value="0.25" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/permission.xml" value="0.2" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/permission_get.xml" value="0.25" />
-        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/playlist.xml" value="0.3879668049792531" />
+        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/playlist.xml" value="0.2" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/playlistmusic.xml" value="0.1" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/teit_corp.xml" value="0.22" />
-        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/menu/bottom_navigation.xml" value="0.5" />
+        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/menu/bottom_menu_rus.xml" value="0.24467353951890033" />
+        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/menu/bottom_navigation.xml" value="0.2" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.131" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.131" />
       </map>

@@ -47,7 +47,7 @@
             app:endIconTint="@color/black1"
             app:startIconDrawable="@drawable/search"
             app:startIconTint="@color/black1"
-            android:hint="Поиск"
+            android:hint="Find music"
             app:boxBackgroundColor="@color/textcolor1"
             app:hintTextColor="@color/black1"
             android:textColorHint="@color/black1"

@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FavoriteScreen extends Activity {
     NavigationBarView navigationBarView;
@@ -35,6 +36,11 @@ public class FavoriteScreen extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.favorites);
+
+        TextView textMainFavoritetoRussian = findViewById(R.id.TextWelcomeFavoriteScreen);
+        if(Locale.getDefault().getLanguage()=="ru"){
+            textMainFavoritetoRussian.setText("Ваша любимая музыка");
+        }
 
         //declare intents
         final Intent intent_to_home = new Intent(com.teit.teit_music.FavoriteScreen.this,HomeScreen.class);
