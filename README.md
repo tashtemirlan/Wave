@@ -5,16 +5,25 @@ Music visualisation app which will give you new sense of your music! Try it now 
 Приложение визуализации музыки которое даст вам новое ощущение и чувства вашей музыки! Попробуйте сейчас и погрузитесь в вашу музыку! 
 
 # App screens showcase :
-![photo_2022-10-24_15-21-50 (2)](https://user-images.githubusercontent.com/45388866/197535794-10731107-41e8-4a7a-9858-2d98e3b30d41.jpg)
 
-![photo_2022-10-24_15-21-50](https://user-images.githubusercontent.com/45388866/197535796-779c8c36-0148-466c-801a-421f3c9a4ef2.jpg)
+Home page            |  Favorite page
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/45388866/210141567-7db07a98-5660-4476-a138-d7798751ea27.jpg)  |  ![](https://user-images.githubusercontent.com/45388866/210141569-fef82270-8788-47a9-acd6-e111db9aa52f.jpg)
 
-![photo_2022-10-24_15-21-49](https://user-images.githubusercontent.com/45388866/197535792-28968aa9-3abe-47ca-84d6-09228305b692.jpg)
+Playlist page           |  Search page
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/45388866/210141572-4e913f09-1185-41b6-9c88-f5cb91091903.jpg)  |  ![](https://user-images.githubusercontent.com/45388866/210141565-4b80fa58-cd08-4534-8e01-fe2beafdc61b.jpg)
 
-![photo_2022-10-24_15-21-47](https://user-images.githubusercontent.com/45388866/197535773-cf0bae4d-9457-4282-aab9-92e6eef44ff5.jpg)
+# **Your music will _live_ in your screen**
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/45388866/210145497-00bc9860-0fbe-41f1-b26a-013044181afe.jpg" alt="Sublime's custom image"/>
+</p>
 
-![photo_2022-10-24_15-21-46](https://user-images.githubusercontent.com/45388866/197535799-ccd8e970-1915-4786-9ce5-ca471aec38c1.jpg)
+<h2 align="center" style="font-size: 24px;"> <b>Your music will change depend on your volume!</b></h2>
 
+Low volume         |  Hight volume
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/45388866/210145508-6e66f900-88b9-4967-bab6-cc5fae364399.jpg)  |  ![](https://user-images.githubusercontent.com/45388866/210145461-b44bb791-c18c-4131-a16a-b0a3d3aff7ea.jpg)
 # Technologies & Tools
 
 ![](https://img.shields.io/badge/Code-Java-blue)  ![](https://img.shields.io/badge/UI-Material3-orange) ![](https://img.shields.io/badge/Design-MusicVisualisation-red)
