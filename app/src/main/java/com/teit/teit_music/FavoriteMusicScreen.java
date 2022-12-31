@@ -192,21 +192,39 @@ public class FavoriteMusicScreen extends Activity {
         shuffle.setOnClickListener(view -> {
             if (datashuffle.get(0) == 0) {
                 shuffle.setImageResource(R.drawable.repeat);
-                Toast.makeText(FavoriteMusicScreen.this, "Повтор альбома",
-                        Toast.LENGTH_SHORT).show();
+                if(Locale.getDefault().getLanguage()=="ru"){
+                    Toast.makeText(FavoriteMusicScreen.this, "Повтор альбома",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(FavoriteMusicScreen.this, "Reply Album",
+                            Toast.LENGTH_SHORT).show();
+                }
                 shuffle.startAnimation(animation);
                 datashuffle.set(0, 1);
             } else {
                 if (datashuffle.get(0) == 1) {
                     shuffle.setImageResource(R.drawable.repeat_one);
-                    Toast.makeText(FavoriteMusicScreen.this, "Повтор песни",
-                            Toast.LENGTH_SHORT).show();
+                    if(Locale.getDefault().getLanguage()=="ru"){
+                        Toast.makeText(FavoriteMusicScreen.this, "Повтор песни",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(FavoriteMusicScreen.this, "Reply song",
+                                Toast.LENGTH_SHORT).show();
+                    }
                     shuffle.startAnimation(animation);
                     datashuffle.set(0, 2);
                 } else {
                     shuffle.setImageResource(R.drawable.shuffle);
-                    Toast.makeText(FavoriteMusicScreen.this, "Случайная песня",
-                            Toast.LENGTH_SHORT).show();
+                    if(Locale.getDefault().getLanguage()=="ru"){
+                        Toast.makeText(FavoriteMusicScreen.this, "Случайная песня",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(FavoriteMusicScreen.this, "Random song",
+                                Toast.LENGTH_SHORT).show();
+                    }
                     shuffle.startAnimation(animation);
                     datashuffle.set(0, 0);
                 }

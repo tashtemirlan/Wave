@@ -213,21 +213,39 @@ public class PlayListMusicScreen extends Activity {
         shuffle.setOnClickListener(view -> {
             if (datashuffle.get(0) == 0) {
                 shuffle.setImageResource(R.drawable.repeat);
-                Toast.makeText(PlayListMusicScreen.this, "Повтор альбома",
-                        Toast.LENGTH_SHORT).show();
+                if(Locale.getDefault().getLanguage()=="ru"){
+                    Toast.makeText(PlayListMusicScreen.this, "Повтор альбома",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(PlayListMusicScreen.this, "Reply Album",
+                            Toast.LENGTH_SHORT).show();
+                }
                 shuffle.startAnimation(animation);
                 datashuffle.set(0, 1);
             } else {
                 if (datashuffle.get(0) == 1) {
                     shuffle.setImageResource(R.drawable.repeat_one);
-                    Toast.makeText(PlayListMusicScreen.this, "Повтор песни",
-                            Toast.LENGTH_SHORT).show();
+                    if(Locale.getDefault().getLanguage()=="ru"){
+                        Toast.makeText(PlayListMusicScreen.this, "Повтор песни",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(PlayListMusicScreen.this, "Reply song",
+                                Toast.LENGTH_SHORT).show();
+                    }
                     shuffle.startAnimation(animation);
                     datashuffle.set(0, 2);
                 } else {
                     shuffle.setImageResource(R.drawable.shuffle);
-                    Toast.makeText(PlayListMusicScreen.this, "Случайная песня",
-                            Toast.LENGTH_SHORT).show();
+                    if(Locale.getDefault().getLanguage()=="ru"){
+                        Toast.makeText(PlayListMusicScreen.this, "Случайная песня",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(PlayListMusicScreen.this, "Random song",
+                                Toast.LENGTH_SHORT).show();
+                    }
                     shuffle.startAnimation(animation);
                     datashuffle.set(0, 0);
                 }
