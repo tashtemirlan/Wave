@@ -69,7 +69,7 @@ public class FindMusicScreen extends Activity {
         int width_text = (int) Math.floor(width*0.8) - 112;
 
         if(Locale.getDefault().getLanguage()=="ru"){
-            textInputLayout.setHint("Поиск музыки");
+            textinplay.setHint("Поиск музыки");
         }
 
         //set proper height to our scrollView =>
