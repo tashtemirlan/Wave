@@ -245,6 +245,7 @@ public class FindMusicScreen extends Activity {
             }
         });
     }
+<<<<<<< HEAD
     public void ShowSameSongs(File[] files , String givenText ){
         for (File f : files){
             if(f.getName().toLowerCase(Locale.ROOT).contains(givenText)) {
@@ -254,3 +255,6 @@ public class FindMusicScreen extends Activity {
         }
     }
 }
+=======
+}
+>>>>>>> origin/main
