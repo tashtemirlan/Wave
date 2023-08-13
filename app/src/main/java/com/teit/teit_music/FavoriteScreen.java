@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -36,6 +37,8 @@ public class FavoriteScreen extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.favorites);
+
+        String previousMusic = getIntent().getStringExtra("SongName");
 
         TextView textMainFavoritetoRussian = findViewById(R.id.TextWelcomeFavoriteScreen);
         if(Locale.getDefault().getLanguage()=="ru"){
@@ -191,6 +194,36 @@ public class FavoriteScreen extends Activity {
                     }
                 }
             }
+        }
+
+        //scroll to =>
+        if(previousMusic!=null){
+            Handler handler1 = new Handler();
+            handler1.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    final LinearLayout linearLayout =(LinearLayout)findViewById(R.id.musiccontainerFavoriteScreen);
+                    int ScrollingTo =0;
+                    for(int i=0; i <linearLayout.getChildCount();i++){
+                        View viewChild = linearLayout.getChildAt(i);
+                        if(viewChild instanceof LinearLayout){
+                            LinearLayout childLinear = (LinearLayout) viewChild;
+                            for(int j=0; j<childLinear.getChildCount();j++){
+                                View childOfChildView = childLinear.getChildAt(j);
+                                if(childOfChildView instanceof TextView){
+                                    TextView tv = (TextView) childOfChildView;
+                                    String tvText = tv.getText().toString();
+                                    if(tvText.equals(previousMusic)){
+                                        ScrollingTo = childLinear.getTop();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    scrl.smoothScrollTo(0,ScrollingTo);
+                }
+            },1000);
         }
     }
 }

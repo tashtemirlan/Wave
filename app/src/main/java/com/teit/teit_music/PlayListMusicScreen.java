@@ -50,7 +50,8 @@ public class PlayListMusicScreen extends Activity {
     MediaPlayer player;
     Timer timer;
     DataBasePlayList dataBasePlayList;
-
+    Random rand = new Random();
+    String path = Environment.getExternalStorageDirectory().toString() + "/Download/";
     //Release our player =>
     @Override
     public void onDestroy() {
@@ -182,12 +183,9 @@ public class PlayListMusicScreen extends Activity {
         circlevisualLayoutParams.topToBottom = arrowback.getId();
         circleVisual.setLayoutParams(circlevisualLayoutParams);
 
-
         musicnameArray.add(music.getName());
 
-
         //we should get all files
-        String path = Environment.getExternalStorageDirectory().toString() + "/Download/";
         boolean isFavorite = false;
         //set our hearth button =>
         for(int i=0; i<nameFavoriteSongs.size();i++){
@@ -299,259 +297,13 @@ public class PlayListMusicScreen extends Activity {
 
         //here we should write logic for next button and previous button =>
         nextbutton.setOnClickListener(view -> {
-            //set heart unfilled =>
-            musicheart.setImageResource(R.drawable.heart);
-            //hide visualization
-            circleVisual.hide();
-            //set pause to player =>
-            player.pause();
             nextbutton.startAnimation(animation);
-            int music_logic = datashuffle.get(0);
-            int position = 0;
-            for (int starttick = 0; starttick < namePlaylistSongs.size(); starttick++) {
-                if (musicnameArray.get(0).equals(namePlaylistSongs.get(starttick))) {
-                    position = starttick;
-                    break;
-                }
-            }
-            //set to view that music is playing
-            play.setImageResource(R.drawable.pause);
-            dataplay.set(0, 1);
-
-            if (music_logic == 0) {
-                int rand = new Random().nextInt(namePlaylistSongs.size() - 1);
-                File newmusic = new File(path + namePlaylistSongs.get(rand));
-                //should get if our new music is Favorite or not =>
-                for(int i=0; i<nameFavoriteSongs.size();i++){
-                    if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                        //set heart filled =>
-                        musicheart.setImageResource(R.drawable.heart_filled);
-                        break;
-                    }
-                }
-                //we should pause our media player =>
-                player.reset();
-                //set new music =>
-                MusicSet(newmusic);
-                //create new player =>
-                try {
-                    player.setDataSource(newmusic.getAbsolutePath());
-                    player.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                musicnameArray.set(0, newmusic.getName());
-
-                //set data to visualizer =>
-                int neweraudiovisualID = player.getAudioSessionId();
-                if (neweraudiovisualID != -1) {
-                    //set data to visual =>
-                    circleVisual.setAudioSessionId(neweraudiovisualID);
-                    circleVisual.setAudioSessionId(neweraudiovisualID);
-                }
-                circleVisual.show();
-
-                //start music =>
-                player.start();
-
-            } else {
-                if (position == namePlaylistSongs.size() - 1) {
-                    File newmusic = new File(path + namePlaylistSongs.get(0));
-                    //should get if our new music is Favorite or not =>
-                    for(int i=0; i<nameFavoriteSongs.size();i++){
-                        if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                            //set heart filled =>
-                            musicheart.setImageResource(R.drawable.heart_filled);
-                            break;
-                        }
-                    }
-                    //we should pause our media player =>
-                    player.reset();
-                    //set new music =>
-                    MusicSet(newmusic);
-                    //create new player =>
-                    try {
-                        player.setDataSource(newmusic.getAbsolutePath());
-                        player.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    musicnameArray.set(0, newmusic.getName());
-
-                    //set data to visualizer =>
-                    int neweraudiovisualID = player.getAudioSessionId();
-                    if (neweraudiovisualID != -1) {
-                        //set data to visual =>
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                    }
-                    circleVisual.show();
-
-                    //start music =>
-                    player.start();
-                } else {
-                    File newmusic = new File(path + namePlaylistSongs.get(position + 1));
-                    //should get if our new music is Favorite or not =>
-                    for(int i=0; i<nameFavoriteSongs.size();i++){
-                        if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                            //set heart filled =>
-                            musicheart.setImageResource(R.drawable.heart_filled);
-                            break;
-                        }
-                    }
-                    //we should pause our media player =>
-                    player.reset();
-                    //set new music =>
-                    MusicSet(newmusic);
-                    //create new player =>
-                    try {
-                        player.setDataSource(newmusic.getAbsolutePath());
-                        player.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    musicnameArray.set(0, newmusic.getName());
-
-                    //set data to visualizer =>
-                    int neweraudiovisualID = player.getAudioSessionId();
-                    if (neweraudiovisualID != -1) {
-                        //set data to visual =>
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                    }
-                    circleVisual.show();
-
-                    //start music =>
-                    player.start();
-                }
-            }
+            NextMusic(namePlaylistSongs,nameFavoriteSongs);
         });
 
         previousbutton.setOnClickListener(view -> {
-            //set heart unfilled =>
-            musicheart.setImageResource(R.drawable.heart);
-            //clear data to circle visual
-            circleVisual.hide();
             previousbutton.startAnimation(animation);
-            //set pause to player=>
-            player.pause();
-            int music_logic = datashuffle.get(0);
-            //we should get position from list of our music
-            int position = 0;
-            for (int starttick = 0; starttick < namePlaylistSongs.size(); starttick++) {
-                if (musicnameArray.get(0).equals(namePlaylistSongs.get(starttick))) {
-                    position = starttick;
-                    break;
-                }
-            }
-            //set to view that music is playing
-            play.setImageResource(R.drawable.pause);
-            dataplay.set(0, 1);
-
-            if (music_logic == 0) {
-                int rand = new Random().nextInt(namePlaylistSongs.size() - 1);
-                File newmusic = new File(path +  namePlaylistSongs.get(rand));
-                //should get if our new music is Favorite or not =>
-                for(int i=0; i<nameFavoriteSongs.size();i++){
-                    if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                        //set heart filled =>
-                        musicheart.setImageResource(R.drawable.heart_filled);
-                        break;
-                    }
-                }
-                //we should pause our media player =>
-                player.reset();
-                //set new music =>
-                MusicSet(newmusic);
-                //create new player =>
-                try {
-                    player.setDataSource(newmusic.getAbsolutePath());
-                    player.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                musicnameArray.set(0, newmusic.getName());
-
-                //set data to visualizer =>
-                int neweraudiovisualID = player.getAudioSessionId();
-                if (neweraudiovisualID != -1) {
-                    //set data to visual =>
-                    circleVisual.setAudioSessionId(neweraudiovisualID);
-                    circleVisual.setAudioSessionId(neweraudiovisualID);
-                }
-                circleVisual.show();
-                //start music =>
-                player.start();
-
-            } else {
-                if (position == 0) {
-                    File newmusic = new File(path + namePlaylistSongs.get(namePlaylistSongs.size() - 1));
-                    //should get if our new music is Favorite or not =>
-                    for(int i=0; i<nameFavoriteSongs.size();i++){
-                        if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                            //set heart filled =>
-                            musicheart.setImageResource(R.drawable.heart_filled);
-                            break;
-                        }
-                    }
-                    //we should pause our media player =>
-                    player.reset();
-                    //set new music =>
-                    MusicSet(newmusic);
-                    //create new player =>
-                    try {
-                        player.setDataSource(newmusic.getAbsolutePath());
-                        player.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    musicnameArray.set(0, newmusic.getName());
-
-                    //set data to visualizer =>
-                    int neweraudiovisualID = player.getAudioSessionId();
-                    if (neweraudiovisualID != -1) {
-                        //set data to visual =>
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                    }
-                    circleVisual.show();
-                    //start music =>
-                    player.start();
-                } else {
-                    File newmusic = new File(path + namePlaylistSongs.get(position - 1));
-                    //should get if our new music is Favorite or not =>
-                    for(int i=0; i<nameFavoriteSongs.size();i++){
-                        if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                            //set heart filled =>
-                            musicheart.setImageResource(R.drawable.heart_filled);
-                            break;
-                        }
-                    }
-                    //we should pause our media player =>
-                    player.reset();
-                    //set new music =>
-                    MusicSet(newmusic);
-                    //create new player =>
-                    try {
-                        player.setDataSource(newmusic.getAbsolutePath());
-                        player.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    musicnameArray.set(0, newmusic.getName());
-
-                    //set data to visualizer =>
-                    int neweraudiovisualID = player.getAudioSessionId();
-                    if (neweraudiovisualID != -1) {
-                        //set data to visual =>
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                    }
-                    circleVisual.show();
-                    //start music =>
-                    player.start();
-                }
-            }
+            PreviousMusic(namePlaylistSongs, nameFavoriteSongs);
         });
 
         //here we should write logic when player finish play our certain music =>
@@ -631,174 +383,18 @@ public class PlayListMusicScreen extends Activity {
                             } else {
                                 musicstart.setText(min + ":0" + sec);
                             }
-                            //if we reached end we should get to next music =>
-                            if (secall >= (musicDanceBar.getMax() - 2)) {
-                                //set heart unfilled =>
-                                musicheart.setImageResource(R.drawable.heart);
-                                //hide our visualization
-                                circleVisual.hide();
-
-                                int music_logic = datashuffle.get(0);
-                                int position = 0;
-                                for (int starttick = 0; starttick < namePlaylistSongs.size(); starttick++) {
-                                    if (musicnameArray.get(0).equals(namePlaylistSongs.get(starttick))) {
-                                        position = starttick;
-                                        break;
-                                    }
-                                }
-                                //set to view that music is playing
-                                play.setImageResource(R.drawable.pause);
-                                dataplay.set(0, 1);
-
-                                if (music_logic == 0) {
-                                    int rand = new Random().nextInt(namePlaylistSongs.size() - 1);
-                                    File newmusic = new File(path + namePlaylistSongs.get(rand));
-                                    //should get if our new music is Favorite or not =>
-                                    for(int i=0; i<nameFavoriteSongs.size();i++){
-                                        if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                                            //set heart filled =>
-                                            musicheart.setImageResource(R.drawable.heart_filled);
-                                            break;
-                                        }
-                                    }
-                                    //we should pause our media player =>
-                                    player.reset();
-
-                                    //set new music =>
-                                    MusicSet(newmusic);
-                                    //create new player =>
-                                    try {
-                                        player.setDataSource(newmusic.getAbsolutePath());
-                                        player.prepare();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    musicnameArray.set(0, newmusic.getName());
-
-                                    //set data to visualizer =>
-                                    int neweraudiovisualID = player.getAudioSessionId();
-                                    if (neweraudiovisualID != -1) {
-                                        //set data to visual =>
-                                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                                        circleVisual.setAudioSessionId(neweraudiovisualID);
-                                    }
-                                    circleVisual.show();
-
-                                    //start music =>
-                                    player.start();
-
-                                } else {
-                                    if (music_logic == 1) {
-                                        if (position == namePlaylistSongs.size() - 1) {
-                                            File newmusic = new File(path + namePlaylistSongs.get(0));
-                                            //should get if our new music is Favorite or not =>
-                                            for(int i=0; i<nameFavoriteSongs.size();i++){
-                                                if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                                                    //set heart filled =>
-                                                    musicheart.setImageResource(R.drawable.heart_filled);
-                                                    break;
-                                                }
-                                            }
-                                            //we should pause our media player =>
-                                            player.reset();
-                                            //set new music =>
-                                            MusicSet(newmusic);
-                                            //create new player =>
-                                            try {
-                                                player.setDataSource(newmusic.getAbsolutePath());
-                                                player.prepare();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                            musicnameArray.set(0, newmusic.getName());
-
-                                            //set data to visualizer =>
-                                            int neweraudiovisualID = player.getAudioSessionId();
-                                            if (neweraudiovisualID != -1) {
-                                                //set data to visual =>
-                                                circleVisual.setAudioSessionId(neweraudiovisualID);
-                                                circleVisual.setAudioSessionId(neweraudiovisualID);
-                                            }
-                                            circleVisual.show();
-
-                                            //start music =>
-                                            player.start();
-                                        } else {
-                                            File newmusic = new File(path + namePlaylistSongs.get(position + 1));
-                                            //should get if our new music is Favorite or not =>
-                                            for(int i=0; i<nameFavoriteSongs.size();i++){
-                                                if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                                                    //set heart filled =>
-                                                    musicheart.setImageResource(R.drawable.heart_filled);
-                                                    break;
-                                                }
-                                            }
-                                            //we should pause our media player =>
-                                            player.reset();
-                                            //set new music =>
-                                            MusicSet(newmusic);
-                                            //create new player =>
-                                            try {
-                                                player.setDataSource(newmusic.getAbsolutePath());
-                                                player.prepare();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                            musicnameArray.set(0, newmusic.getName());
-
-                                            //set data to visualizer =>
-                                            int neweraudiovisualID = player.getAudioSessionId();
-                                            if (neweraudiovisualID != -1) {
-                                                //set data to visual =>
-                                                circleVisual.setAudioSessionId(neweraudiovisualID);
-                                                circleVisual.setAudioSessionId(neweraudiovisualID);
-                                            }
-                                            circleVisual.show();
-
-                                            //start music =>
-                                            player.start();
-                                        }
-                                    } else {
-                                        File newmusic = new File(path + namePlaylistSongs.get(position));
-                                        //should get if our new music is Favorite or not =>
-                                        for(int i=0; i<nameFavoriteSongs.size();i++){
-                                            if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
-                                                //set heart filled =>
-                                                musicheart.setImageResource(R.drawable.heart_filled);
-                                                break;
-                                            }
-                                        }
-                                        //we should pause our media player =>
-                                        player.reset();
-                                        //set new music =>
-                                        MusicSet(newmusic);
-                                        //create new player =>
-                                        try {
-                                            player.setDataSource(newmusic.getAbsolutePath());
-                                            player.prepare();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                        musicnameArray.set(0, newmusic.getName());
-
-                                        //set data to visualizer =>
-                                        int neweraudiovisualID = player.getAudioSessionId();
-                                        if (neweraudiovisualID != -1) {
-                                            //set data to visual =>
-                                            circleVisual.setAudioSessionId(neweraudiovisualID);
-                                            circleVisual.setAudioSessionId(neweraudiovisualID);
-                                        }
-                                        circleVisual.show();
-                                        //start music =>
-                                        player.start();
-                                    }
-                                }
-                            }
                         }
                     }
                 });
             }
         }, 0, 1000);
+
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                MusicEnded(namePlaylistSongs,nameFavoriteSongs);
+            }
+        });
     }
 
     public void MusicSet(File musicnew) {
@@ -857,5 +453,148 @@ public class PlayListMusicScreen extends Activity {
             }
         }
         MusicSetmusicbar.setMax(allseconds);
+    }
+
+    public void NewMusic(ArrayList<String> nameFavoriteSongs,File newmusic){
+        //should get if our new music is Favorite or not =>
+        for(int i=0; i<nameFavoriteSongs.size();i++){
+            if(newmusic.getName().equals(nameFavoriteSongs.get(i))){
+                //set heart filled =>
+                musicheart.setImageResource(R.drawable.heart_filled);
+                break;
+            }
+        }
+        player.stop();
+        //we should pause our media player =>
+        player.reset();
+        //set new music =>
+        MusicSet(newmusic);
+        //create new player =>
+        try {
+            player.setDataSource(newmusic.getAbsolutePath());
+            player.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        musicnameArray.set(0, newmusic.getName());
+
+        //set data to visualizer =>
+        int neweraudiovisualID = player.getAudioSessionId();
+        if (neweraudiovisualID != -1) {
+            //set data to visual =>
+            circleVisual.setAudioSessionId(neweraudiovisualID);
+        }
+        circleVisual.show();
+
+        //start music =>
+        player.start();
+    }
+
+    public void NextMusic(ArrayList<String> namePlaylistSongs, ArrayList<String> nameFavoriteSongs){
+        //set heart unfilled =>
+        musicheart.setImageResource(R.drawable.heart);
+        //hide visualization
+        circleVisual.hide();
+        //set pause to player =>
+        player.pause();
+        int music_logic = datashuffle.get(0);
+        int position = 0;
+        for (int starttick = 0; starttick < namePlaylistSongs.size(); starttick++) {
+            if (musicnameArray.get(0).equals(namePlaylistSongs.get(starttick))) {
+                position = starttick;
+                break;
+            }
+        }
+        //set to view that music is playing
+        play.setImageResource(R.drawable.pause);
+        dataplay.set(0, 1);
+
+        if (music_logic == 0) {
+            int newrand = rand.nextInt(namePlaylistSongs.size() - 1);
+            File newmusic = new File(path + namePlaylistSongs.get(newrand));
+            NewMusic(nameFavoriteSongs,newmusic);
+        } else {
+            if (position == namePlaylistSongs.size() - 1) {
+                File newmusic = new File(path + namePlaylistSongs.get(0));
+                NewMusic(nameFavoriteSongs,newmusic);
+            } else {
+                File newmusic = new File(path + namePlaylistSongs.get(position + 1));
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
+        }
+    }
+
+    public void PreviousMusic(ArrayList<String> namePlaylistSongs , ArrayList<String> nameFavoriteSongs){
+        //set heart unfilled =>
+        musicheart.setImageResource(R.drawable.heart);
+        //clear data to circle visual
+        circleVisual.hide();
+        //set pause to player=>
+        player.pause();
+        int music_logic = datashuffle.get(0);
+        //we should get position from list of our music
+        int position = 0;
+        for (int starttick = 0; starttick < namePlaylistSongs.size(); starttick++) {
+            if (musicnameArray.get(0).equals(namePlaylistSongs.get(starttick))) {
+                position = starttick;
+                break;
+            }
+        }
+        //set to view that music is playing
+        play.setImageResource(R.drawable.pause);
+        dataplay.set(0, 1);
+
+        if (music_logic == 0) {
+            int newrand = rand.nextInt(namePlaylistSongs.size() - 1);
+            File newmusic = new File(path +  namePlaylistSongs.get(newrand));
+            NewMusic(nameFavoriteSongs,newmusic);
+        } else {
+            if (position == 0) {
+                File newmusic = new File(path + namePlaylistSongs.get(namePlaylistSongs.size() - 1));
+                NewMusic(nameFavoriteSongs,newmusic);
+            } else {
+                File newmusic = new File(path + namePlaylistSongs.get(position - 1));
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
+        }
+    }
+
+    public void MusicEnded(ArrayList<String> namePlaylistSongs , ArrayList<String> nameFavoriteSongs){
+        //set heart unfilled =>
+        musicheart.setImageResource(R.drawable.heart);
+        //hide our visualization
+        circleVisual.hide();
+
+        int music_logic = datashuffle.get(0);
+        int position = 0;
+        for (int starttick = 0; starttick < namePlaylistSongs.size(); starttick++) {
+            if (musicnameArray.get(0).equals(namePlaylistSongs.get(starttick))) {
+                position = starttick;
+                break;
+            }
+        }
+        //set to view that music is playing
+        play.setImageResource(R.drawable.pause);
+        dataplay.set(0, 1);
+
+        if (music_logic == 0) {
+            int newrand = rand.nextInt(namePlaylistSongs.size() - 1);
+            File newmusic = new File(path + namePlaylistSongs.get(newrand));
+            NewMusic(nameFavoriteSongs,newmusic);
+
+        } else {
+            if (music_logic == 1) {
+                if (position == namePlaylistSongs.size() - 1) {
+                    File newmusic = new File(path + namePlaylistSongs.get(0));
+                    NewMusic(nameFavoriteSongs,newmusic);
+                } else {
+                    File newmusic = new File(path + namePlaylistSongs.get(position + 1));
+                    NewMusic(nameFavoriteSongs,newmusic);
+                }
+            } else {
+                File newmusic = new File(path + namePlaylistSongs.get(position));
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
+        }
     }
 }

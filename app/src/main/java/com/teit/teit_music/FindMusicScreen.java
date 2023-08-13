@@ -38,7 +38,7 @@ public class FindMusicScreen extends Activity {
     ScrollView scrl;
     LinearLayout ln1;
     DataBaseHelp dataBaseHelp;
-
+    ArrayList<String> nameSearchedSongs = new ArrayList<>();
     //set logic to click back arrow =>
     @Override
     public void onBackPressed() {
@@ -69,7 +69,7 @@ public class FindMusicScreen extends Activity {
         int width_text = (int) Math.floor(width*0.8) - 112;
 
         if(Locale.getDefault().getLanguage()=="ru"){
-            textInputLayout.setHint("Поиск музыки");
+            textinplay.setHint("Поиск музыки");
         }
 
         //set proper height to our scrollView =>
@@ -203,11 +203,13 @@ public class FindMusicScreen extends Activity {
                             //recreate our logical variable =>
                             boolean finalIsFavorite = isFavorite;
                             datalayout.setOnClickListener(v -> {
+                                ShowSameSongs(files, String.valueOf(textInputLayout.getText()).toLowerCase(Locale.ROOT));
                                 //start new intent ==>
-                                Intent intent = new Intent(FindMusicScreen.this,MusicScreen.class);
+                                Intent intent = new Intent(FindMusicScreen.this,SearchMusicScreen.class);
                                 //add data to our intent = >
                                 intent.putExtra("file", f.getAbsolutePath());
                                 intent.putExtra("isFav", finalIsFavorite);
+                                intent.putExtra("ArrayNameSearchSongs", nameSearchedSongs);
                                 startActivity(intent);
                                 finish();
                             });
@@ -242,5 +244,13 @@ public class FindMusicScreen extends Activity {
                 }
             }
         });
+    }
+    public void ShowSameSongs(File[] files , String givenText ){
+        for (File f : files){
+            if(f.getName().toLowerCase(Locale.ROOT).contains(givenText)) {
+                //todo: add files to arraylist =>
+                nameSearchedSongs.add(f.getAbsolutePath());
+            }
+        }
     }
 }

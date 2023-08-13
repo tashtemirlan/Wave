@@ -10,6 +10,7 @@
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/drawable/heart.xml" value="0.131" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/drawable/heart_filled.xml" value="0.131" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/drawable/home.xml" value="0.131" />
+        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/drawable/home_filled.xml" value="0.142" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/drawable/icon_bottombar_1.xml" value="0.131" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/drawable/icon_bottombar_2.xml" value="0.131" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/drawable/icon_bottombar_3.xml" value="0.131" />
@@ -24,7 +25,7 @@
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/activity_main.xml" value="0.37083333333333335" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/favorites.xml" value="0.25" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/findmusic.xml" value="0.25" />
-        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/home.xml" value="0.25" />
+        <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/home.xml" value="0.2" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/musicplaylistdialoge.xml" value="0.25" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/musicscreen.xml" value="0.25" />
         <entry key="..\:/FlutterApplications/teit_music/app/src/main/res/layout/permission.xml" value="0.2" />

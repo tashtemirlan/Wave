@@ -66,8 +66,6 @@ public class Playlist extends Activity {
         //Should get all records inside =>
         dataBasePlayList.getAllRecords(namePlaylistSongs , tablename);
 
-        Log.d("Music" , tablename);
-        Log.d("Music" , String.valueOf(namePlaylistSongs));
 
         //set ScrollView scrolling smooth =>
         scrl.fullScroll(View.FOCUS_DOWN);

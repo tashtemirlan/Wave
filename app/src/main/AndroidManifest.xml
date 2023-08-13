@@ -56,6 +56,9 @@
         <activity android:name=".PlayListMusicScreen"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".SearchMusicScreen"
+            android:screenOrientation="portrait"
+            />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

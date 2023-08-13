@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.SyncStateContract;
 import android.text.TextUtils;
@@ -35,8 +37,12 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 
 public class HomeScreen extends Activity{
@@ -62,13 +68,15 @@ public class HomeScreen extends Activity{
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setContentView(R.layout.home);
 
+            String previousMusic = getIntent().getStringExtra("SongName");
+
 
             //declare intents
-            final Intent intent_to_favorite = new Intent(com.teit.teit_music.HomeScreen.this,FavoriteScreen.class);
+            final Intent intent_to_favorite = new Intent(HomeScreen.this,FavoriteScreen.class);
             intent_to_favorite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-            final Intent intent_to_playlist = new Intent(com.teit.teit_music.HomeScreen.this,PlaylistScreen.class);
+            final Intent intent_to_playlist = new Intent(HomeScreen.this,PlaylistScreen.class);
             intent_to_playlist.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-            final Intent intent_to_search = new Intent(com.teit.teit_music.HomeScreen.this,FindMusicScreen.class);
+            final Intent intent_to_search = new Intent(HomeScreen.this,FindMusicScreen.class);
             intent_to_playlist.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
 
             //get device height and width
@@ -136,29 +144,7 @@ public class HomeScreen extends Activity{
                 return true;
             });
 
-            //set right height to scrollview =>
-            //get height of text1 =>
-            tx1.measure(0,0);
-            int height_text1 = tx1.getMeasuredHeight();
-            //get height of text1 =>
-            tx2.measure(0,0);
-            int height_text2 = tx2.getMeasuredHeight();
-            //get height of text input layout =>
-            textinplay.measure(0,0);
-            int height_textinput = textinplay.getMeasuredHeight();
-            //get height of navigation bar =>
-            Resources resources = HomeScreen.this.getResources();
-            int resourceId = resources.getIdentifier("navigation_bar_height",
-                    "dimen", "android");
-            int navigationheight = HomeScreen.this.getResources().getDimensionPixelSize(resourceId);
-            int scrl_height = height - height_text1 - height_text2 - height_textinput -navigationheight-40;
 
-
-            //set scrollview height
-
-            ConstraintLayout.LayoutParams scroll = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, scrl_height);
-            scroll.topToBottom = textinplay.getId();
-            scrl.setLayoutParams(scroll);
             //set ScrollView scrolling smooth =>
             scrl.fullScroll(View.FOCUS_DOWN);
             scrl.setSmoothScrollingEnabled(true);
@@ -169,6 +155,9 @@ public class HomeScreen extends Activity{
             File directory = new File(path);
             //here we get all files in download folder
             File[] files = directory.listFiles();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Arrays.sort(files, Comparator.comparing(File::getName).reversed());
+            }
             //so now we should get only mp3 files and build them=>
             if(directory.canRead() && files!=null) {
                 final LinearLayout linearLayout =(LinearLayout)findViewById(R.id.musiccontainer);
@@ -234,6 +223,7 @@ public class HomeScreen extends Activity{
                         textView.setHorizontalFadingEdgeEnabled(true);
                         textView.setMarqueeRepeatLimit(-1);
                         textView.setSingleLine(true);
+                        textView.setSelected(true);
 
                         //add children to our main layout =>
                         datalayout.addView(musicicon);
@@ -258,5 +248,34 @@ public class HomeScreen extends Activity{
                 }
             }
 
+            //scroll to =>
+            if(previousMusic!=null){
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        final LinearLayout linearLayout =(LinearLayout)findViewById(R.id.musiccontainer);
+                        int ScrollingTo =0;
+                        for(int i=0; i <linearLayout.getChildCount();i++){
+                            View viewChild = linearLayout.getChildAt(i);
+                            if(viewChild instanceof LinearLayout){
+                                LinearLayout childLinear = (LinearLayout) viewChild;
+                                for(int j=0; j<childLinear.getChildCount();j++){
+                                    View childOfChildView = childLinear.getChildAt(j);
+                                    if(childOfChildView instanceof TextView){
+                                        TextView tv = (TextView) childOfChildView;
+                                        String tvText = tv.getText().toString();
+                                        if(tvText.equals(previousMusic)){
+                                            ScrollingTo = childLinear.getTop();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        scrl.smoothScrollTo(0,ScrollingTo);
+                    }
+                },1000);
+            }
     }
 }

@@ -37,7 +37,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MusicScreen extends Activity {
+public class SearchMusicScreen extends Activity {
+    //here we create class for searched music =>
+
     //declare our widgets =>
     ImageView arrowback, musicheart, shuffle, play, nextbutton, previousbutton;
     TextView musicname_screen, musicauthor_screen, musicend_screen, musicstart_screen;
@@ -52,6 +54,8 @@ public class MusicScreen extends Activity {
     Timer timer;
     String musicNameShow;
     Random rand = new Random();
+    File[] filesSearched;
+
     //Release our player =>
     @Override
     public void onDestroy() {
@@ -66,7 +70,7 @@ public class MusicScreen extends Activity {
         timer.cancel();
         player.release();
         circleVisual.release();
-        Intent intent = new Intent(MusicScreen.this, HomeScreen.class);
+        Intent intent = new Intent(SearchMusicScreen.this, HomeScreen.class);
         intent.putExtra("SongName", musicNameShow);
         startActivity(intent);
         finish();
@@ -97,9 +101,14 @@ public class MusicScreen extends Activity {
         //get data from our intent =>
         String musicplay_path = getIntent().getStringExtra("file");
         boolean ismusicFav = getIntent().getBooleanExtra("isFav", false);
+        ArrayList<String> nameSearchedSongsGet =  (ArrayList<String>) getIntent().getSerializableExtra("ArrayNameSearchSongs");
+
+        //todo : Showdata =>
+        Log.d("Music", "DATA SHOOW ++++>>>>");
+        Log.d("Music", String.valueOf(nameSearchedSongsGet));
 
         //get our dataBase =>
-        dataBaseHelp = new DataBaseHelp(MusicScreen.this);
+        dataBaseHelp = new DataBaseHelp(SearchMusicScreen.this);
 
         //create arraylist where we will get all records from our lovely database =>
         ArrayList<String> nameFavoriteSongs = new ArrayList<>();
@@ -109,7 +118,7 @@ public class MusicScreen extends Activity {
         dataBaseHelp.getAllRecords(nameFavoriteSongs);
 
         //height of user screen =>
-        DisplayMetrics metrics = MusicScreen.this.getResources().getDisplayMetrics();
+        DisplayMetrics metrics = SearchMusicScreen.this.getResources().getDisplayMetrics();
         int height = metrics.heightPixels;
 
         // Creating our animations
@@ -138,7 +147,7 @@ public class MusicScreen extends Activity {
         //Create media player =>
         player = new MediaPlayer();
         player.setAudioAttributes(new AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .setUsage(AudioAttributes.USAGE_MEDIA)
                 .build()
         );
@@ -185,20 +194,6 @@ public class MusicScreen extends Activity {
 
         musicnameArray.add(music.getName());
 
-        //we should get all files
-        String path = Environment.getExternalStorageDirectory().toString() + "/Download";
-        File directory = new File(path);
-        //create filter to get only mp3 files =>
-        FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                return s.endsWith(".mp3");
-            }
-        };
-
-
-        //here we get all files in download folder
-        File[] files = directory.listFiles(filter);
 
         //just write when we click on shuffle => repeat => repeat one
         datashuffle.add(0);
@@ -210,11 +205,11 @@ public class MusicScreen extends Activity {
             if (datashuffle.get(0) == 0) {
                 shuffle.setImageResource(R.drawable.repeat);
                 if(Locale.getDefault().getLanguage()=="ru"){
-                    Toast.makeText(MusicScreen.this, "Повтор альбома",
+                    Toast.makeText(SearchMusicScreen.this, "Повтор альбома",
                             Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(MusicScreen.this, "Reply Album",
+                    Toast.makeText(SearchMusicScreen.this, "Reply Album",
                             Toast.LENGTH_SHORT).show();
                 }
                 shuffle.startAnimation(animation);
@@ -223,11 +218,11 @@ public class MusicScreen extends Activity {
                 if (datashuffle.get(0) == 1) {
                     shuffle.setImageResource(R.drawable.repeat_one);
                     if(Locale.getDefault().getLanguage()=="ru"){
-                        Toast.makeText(MusicScreen.this, "Повтор песни",
+                        Toast.makeText(SearchMusicScreen.this, "Повтор песни",
                                 Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(MusicScreen.this, "Reply song",
+                        Toast.makeText(SearchMusicScreen.this, "Reply song",
                                 Toast.LENGTH_SHORT).show();
                     }
                     shuffle.startAnimation(animation);
@@ -235,11 +230,11 @@ public class MusicScreen extends Activity {
                 } else {
                     shuffle.setImageResource(R.drawable.shuffle);
                     if(Locale.getDefault().getLanguage()=="ru"){
-                        Toast.makeText(MusicScreen.this, "Случайная песня",
+                        Toast.makeText(SearchMusicScreen.this, "Случайная песня",
                                 Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(MusicScreen.this, "Random song",
+                        Toast.makeText(SearchMusicScreen.this, "Random song",
                                 Toast.LENGTH_SHORT).show();
                     }
                     shuffle.startAnimation(animation);
@@ -250,6 +245,11 @@ public class MusicScreen extends Activity {
 
         // set that music is non playing when we click =>
         dataplay.add(0);
+
+        //todo: fulfill file array =>
+        setFiles(nameSearchedSongsGet);
+
+
         play.setOnClickListener(view -> {
             if (dataplay.get(0) == 0) {
                 play.setImageResource(R.drawable.pause);
@@ -271,7 +271,7 @@ public class MusicScreen extends Activity {
             timer.cancel();
             player.release();
             circleVisual.release();
-            Intent intent = new Intent(MusicScreen.this, HomeScreen.class);
+            Intent intent = new Intent(SearchMusicScreen.this, HomeScreen.class);
             intent.putExtra("SongName", musicNameShow);
             startActivity(intent);
             finish();
@@ -296,12 +296,12 @@ public class MusicScreen extends Activity {
         //here we should write logic for next button and previous button =>
         nextbutton.setOnClickListener(view -> {
             nextbutton.startAnimation(animation);
-            NextMusic(files,nameFavoriteSongs);
+            NextMusic(filesSearched,nameFavoriteSongs);
         });
 
         previousbutton.setOnClickListener(view -> {
             previousbutton.startAnimation(animation);
-            PreviousMusic(files,nameFavoriteSongs);
+            PreviousMusic(filesSearched,nameFavoriteSongs);
         });
 
         //here we should write logic when player finish play our certain music =>
@@ -363,7 +363,7 @@ public class MusicScreen extends Activity {
 
             @Override
             public void run() {
-                MusicScreen.this.runOnUiThread(new Runnable() {
+                SearchMusicScreen.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //check if player is playing =>
@@ -389,7 +389,7 @@ public class MusicScreen extends Activity {
         player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                MusicEnded(files,nameFavoriteSongs);
+                MusicEnded(filesSearched,nameFavoriteSongs);
             }
         });
     }
@@ -408,7 +408,7 @@ public class MusicScreen extends Activity {
         //Work with music =>
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
         Uri uriMusic = Uri.fromFile(musicnew);
-        mediaMetadataRetriever.setDataSource(MusicScreen.this, uriMusic);
+        mediaMetadataRetriever.setDataSource(SearchMusicScreen.this, uriMusic);
 
         String songName = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         String artist = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
@@ -489,7 +489,16 @@ public class MusicScreen extends Activity {
         player.start();
     }
 
+    public void setFiles(ArrayList<String> nameSearchedSongs){
+        filesSearched = new File[nameSearchedSongs.size()];
+        for(int iter=0 ; iter< nameSearchedSongs.size(); iter++){
+            File newSearchFile = new File(nameSearchedSongs.get(iter));
+            filesSearched[iter] = newSearchFile;
+        }
+    }
+
     public void NextMusic(File[] files , ArrayList<String> nameFavoriteSongs){
+
         //set heart unfilled =>
         musicheart.setImageResource(R.drawable.heart);
         //hide visualization
@@ -510,9 +519,15 @@ public class MusicScreen extends Activity {
         dataplay.set(0, 1);
 
         if (music_logic == 0) {
-            int newrand = rand.nextInt(files.length - 1);
-            File newmusic = files[newrand];
-            NewMusic(nameFavoriteSongs,newmusic);
+            if (files.length==1){
+                File newmusic = files[position];
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
+            else{
+                int newrand = rand.nextInt(files.length - 1);
+                File newmusic = files[newrand];
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
         } else {
             if (position == files.length - 1) {
                 File newmusic = files[0];
@@ -545,9 +560,15 @@ public class MusicScreen extends Activity {
         dataplay.set(0, 1);
 
         if (music_logic == 0) {
-            int newrand = rand.nextInt(files.length - 1);
-            File newmusic = files[newrand];
-            NewMusic(nameFavoriteSongs,newmusic);
+            if (files.length==1){
+                File newmusic = files[position];
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
+            else {
+                int newrand = rand.nextInt(files.length - 1);
+                File newmusic = files[newrand];
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
         } else {
             if (position == 0) {
                 File newmusic = files[files.length - 1];
@@ -578,10 +599,15 @@ public class MusicScreen extends Activity {
         dataplay.set(0, 1);
 
         if (music_logic == 0) {
-            int newrand = rand.nextInt(files.length - 1);
-            File newmusic = files[newrand];
-            NewMusic(nameFavoriteSongs,newmusic);
-
+            if (files.length==1){
+                File newmusic = files[position];
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
+            else {
+                int newrand = rand.nextInt(files.length - 1);
+                File newmusic = files[newrand];
+                NewMusic(nameFavoriteSongs,newmusic);
+            }
         } else {
             if (music_logic == 1) {
                 if (position == files.length - 1) {
